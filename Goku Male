@@ -1,0 +1,106 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class CharacterTagsLibrary {
+
+    // Mapa para almacenar los rasgos físicos de cada personaje
+    private static final Map<String, Map<String, Object>> characterTraitsMap = new HashMap<>();
+
+    // Inicialización de rasgos físicos para Goku
+    static {
+        // Rasgos físicos de Goku
+        Map<String, Object> gokuTraits = new HashMap<>();
+        gokuTraits.put("name", "Goku");
+
+        // Rasgos físicos completos de la cabeza
+        Map<String, String> headTraits = new HashMap<>();
+        headTraits.put("hair_style", "spiky");
+        headTraits.put("hair_color", "black");
+        headTraits.put("eye_shape", "round");
+        headTraits.put("eye_color", "black");
+        headTraits.put("eyebrows", "thick");
+        headTraits.put("eyelashes", "normal");
+        headTraits.put("nose", "normal");
+        headTraits.put("mouth", "normal lips, normal tongue, straight teeth");
+        headTraits.put("ears", "normal");
+        headTraits.put("skin_color", "fair");
+        gokuTraits.put("head", headTraits);
+
+        // Rasgos físicos completos de la parte superior del cuerpo
+        Map<String, String> upperBodyTraits = new HashMap<>();
+        upperBodyTraits.put("male_chest", "moderate size, muscular shape");
+        upperBodyTraits.put("abdomen", "toned");
+        upperBodyTraits.put("back", "muscular");
+        upperBodyTraits.put("arms", "muscular");
+        upperBodyTraits.put("hands", "strong");
+        upperBodyTraits.put("neck", "thick");
+        upperBodyTraits.put("fingers", "strong");
+        gokuTraits.put("upper_body", upperBodyTraits);
+
+        // Rasgos físicos completos de la parte inferior del cuerpo
+        Map<String, String> lowerBodyTraits = new HashMap<>();
+        lowerBodyTraits.put("legs", "muscular thighs, defined calves, large feet");
+        lowerBodyTraits.put("buttocks", "muscular");
+        lowerBodyTraits.put"("penis", "big", "veiny");
+        lowerBodyTraits.put"("testicles", "big", "veiny");
+        gokuTraits.put("lower_body", lowerBodyTraits);
+
+        characterTraitsMap.put("Goku", gokuTraits);
+    }
+
+    // Método para generar tags basados en los rasgos físicos de un personaje
+    public static List<String> generateTags(String characterName) {
+        List<String> tags = new ArrayList<>();
+
+        // Obtener los rasgos físicos del personaje según su nombre
+        Map<String, Object> characterTraits = characterTraitsMap.get(characterName);
+        if (characterTraits == null) {
+            return tags;  // Devolver lista vacía si no se encuentra el personaje
+        }
+
+        // Añadir nombre del personaje a los tags
+        tags.add((String) characterTraits.get("name"));
+
+        // Añadir rasgos físicos completos de la cabeza a los tags
+        Map<String, String> headTraits = (Map<String, String>) characterTraits.get("head");
+        tags.add(headTraits.get("hair_style"));
+        tags.add(headTraits.get("hair_color"));
+        tags.add(headTraits.get("eye_shape"));
+        tags.add(headTraits.get("eye_color"));
+        tags.add(headTraits.get("eyebrows"));
+        tags.add(headTraits.get("eyelashes"));
+        tags.add(headTraits.get("nose"));
+        tags.add(headTraits.get("mouth"));
+        tags.add(headTraits.get("ears"));
+        tags.add(headTraits.get("skin_color"));
+
+        // Añadir rasgos físicos completos de la parte superior del cuerpo a los tags
+        Map<String, String> upperBodyTraits = (Map<String, String>) characterTraits.get("upper_body");
+        tags.add(upperBodyTraits.get("male_chest"));
+        tags.add(upperBodyTraits.get("abdomen"));
+        tags.add(upperBodyTraits.get("back"));
+        tags.add(upperBodyTraits.get("arms"));
+        tags.add(upperBodyTraits.get("hands"));
+        tags.add(upperBodyTraits.get("neck"));
+        tags.add(upperBodyTraits.get("fingers"));
+
+        // Añadir rasgos físicos completos de la parte inferior del cuerpo a los tags
+        Map<String, String> lowerBodyTraits = (Map<String, String>) characterTraits.get("lower_body");
+        tags.add(lowerBodyTraits.get("legs"));
+        tags.add(lowerBodyTraits.get("buttocks"));
+
+        // Filtrar tags para eliminar valores vacíos o nulos
+        tags.removeIf(tag -> tag == null || tag.isEmpty());
+
+        return tags;
+    }
+
+    // Método main para probar la generación de tags (opcional)
+    public static void main(String[] args) {
+        List<String> gokuTags = generateTags("Goku");
+        System.out.println("Tags generados para Goku:");
+        System.out.println(gokuTags);
+    }
+}
